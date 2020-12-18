@@ -1,38 +1,67 @@
-%ä½¿ç”¨è€…åœ¨è¢å¹•ä¸Šç”¨æ»‘é¼ å·¦éµè¼¸å…¥é»ï¼ŒæŒ‰æ»‘é¼ å³éµåœæ­¢è¼¸å…¥ï¼Œç¨‹å¼æœƒåˆ¤æ–·å°‡é»ä¾åºé€£èµ·ä¾†çš„åœ–å½¢æ˜¯å¦ç‚ºå¤šé‚Šå½¢ã€‚
+%ÃD¥Ø:¦hÃä§Î§PÂ_:¨Ï¥ÎªÌ¥ô·N¨Ì§Ç¿ï¨ú¥­­±¤W n ­ÓÂI, §PÂ_¨ä¬O§_¬°¦hÃä§Î¡C
+%¨Ï¥ÎªÌ¦b¿Ã¹õ¤W¥Î·Æ¹«¥ªÁä¨Ì§Ç¿é¤JÂI¡A«ö·Æ¹«¥kÁä°±¤î¿é¤J¡Aµ{¦¡·|§PÂ_±NÂI¨Ì§Ç³s°_¨Óªº¹Ï§Î¬O§_¬°¦hÃä§Î¡C
 function ispolygon
     X=[];
     Y=[];
     pall=[];
     point_combination=[];
+    array_vector=[];
     check_polygon=true;
-    if size(X,2)==3                       %ä¸‰å€‹é»ä¸€å®šæ˜¯å¤šé‚Šå½¢
-        disp('æ˜¯å¤šé‚Šå½¢')
+    isconvex=true;
+    
+    if size(X,2)==3                       %¤T­ÓÂI¤@©w¬O¦hÃä§Î
+        disp('¬O¦hÃä§Î')
         return
     end
+    axis([0 3 0 3]);
+    hold on
     while 1
-        [x,y,BUTTON] = ginput(1);         %æ»‘é¼ å·¦éµè¼¸å…¥é»
-        if(BUTTON==3)                     %æŒ‰æ»‘é¼ å³éµå°±çµæŸ
+        [x,y,BUTTON] = ginput(1);         %·Æ¹«¥ªÁä¿é¤JÂI
+        if(BUTTON==3)                     % «ö·Æ¹«¥kÁä´Nµ²§ô¿é¤J
             break
         end
         X=[X x];
         Y=[Y y];
+        plot([X],[Y],'k-');              %µe¥XÂI¥Xªº¦hÃä§Î
     end
-    plot([X X(1)],[Y Y(1)]);              %ç•«å‡ºé»å‡ºçš„å¤šé‚Šå½¢
+    plot([X X(1)],[Y Y(1)]);              %µe¥XÂI¥Xªº¦hÃä§Î
+    
+    %¥H¤UÀË´ú¹Ï§Î¬O¥W©Î¥Y¦hÃä§Î¡A¨Ì§Ç¬ö¿ı¦V¶q(1,2)¡B(2,3),...,(n,1)¡A¦AÀË´ú¬Û¾F¦V¶qªºdeterminant¥¿­t¦³µLÅÜ°Ê¡A¦³ÅÜ«h¬°¥W¦hÃä§Î¡C
     for ii=1:(size(X,2)-1)
-        p=polyfit([X(ii) X(ii+1)],[Y(ii) Y(ii+1)],1);          %åšå‡ºéç›¸é„°å…©é»çš„å¤šé …å¼ï¼Œé»äº†nå€‹é»å°±åšnæ¢å¤šé …å¼
-        point_combination=[point_combination [ii;ii+1]];       %ç´€éŒ„å¤šé …å¼æ˜¯ç”±å“ªå…©å€‹é»å½¢æˆçš„
+        vector=[X(ii+1)-X(ii);Y(ii+1)-Y(ii)];
+        array_vector=[array_vector vector];
+    end
+    vector=[X(1)-X(size(X,2));Y(1)-Y(size(X,2))];
+    array_vector=[array_vector vector];
+    for ii=1:(size(array_vector,2)-2)
+        if det([array_vector(:,ii) array_vector(:,ii+1)])*det([array_vector(:,ii+1) array_vector(:,ii+2)])<0
+            isconvex=false;
+        end
+    end
+    if(det([array_vector(:,size(array_vector,2)-1) array_vector(:,size(array_vector,2))])*det([array_vector(:,size(array_vector,2)) array_vector(:,1)])<0)
+        isconvex=false;
+    end
+    if(det([array_vector(:,size(array_vector,2)) array_vector(:,1)])*det([array_vector(:,1) array_vector(:,2)])<0)
+        isconvex=false;
+    end
+
+    
+    for ii=1:(size(X,2)-1)
+        p=polyfit([X(ii) X(ii+1)],[Y(ii) Y(ii+1)],1);          %°µ¥X¹L¬Û¾F¨âÂIªº¦h¶µ¦¡¡AÂI¤Fn­ÓÂI´N°µn±ø¦h¶µ¦¡
+        point_combination=[point_combination [ii;ii+1]];       %ç´¬ö¿ı¦h¶µ¦¡¬O¥Ñ­ş¨â­ÓÂI§Î¦¨ªº
         pall=[pall;p];                                         
     end
-    p=polyfit([X(size(X,2)) X(1)],[Y(size(X,2)) Y(1)],1);      %æœ€å¾Œä¸€é»é€£å›ç¬¬ä¸€é»çš„å–®ç¨åš
+    p=polyfit([X(size(X,2)) X(1)],[Y(size(X,2)) Y(1)],1);      %³Ì«á¤@ÂI³s¦^²Ä¤@ÂIªº³æ¿W°µ
     point_combination=[point_combination [size(X,2);1]];
     pall=[pall;p];
-    %ä»¥ä¸‹è¿´åœˆæª¢é©—(1,3)ã€(1,4)ã€...ã€(1,n-1)çš„ç›´ç·šçµ„åˆã€‚((1,2)å’Œ(1,n)ç‚ºç›¸é„°é‚Šï¼Œä¸éœ€æª¢é©—)
-    for ii=1:(size(pall,1)-1)                                  %æª¢é©—é™¤äº†ç›¸é„°çš„å…©æ¢é‚Šä»¥å¤–çš„ä»»å…©æ¢ç·šæ˜¯å¦æœ‰ç›¸äº¤åœ¨åœ–å½¢çš„é‚Šä¸Šï¼Œè‹¥æœ‰å‰‡åœ–å½¢ä¸æ˜¯å¤šé‚Šå½¢ã€‚
+    
+    %¥H¤U°j°éÀËÅç(1,3)¡B(1,4)¡B...¡B(1,n-1)ªºª½½u²Õ¦X¡C((1,2)©M(1,n)¬°¬Û¾FÃä¡A¤£»İÀËÅç)
+    for ii=1:(size(pall,1)-1)                                  %ÀËÅç°£¤F¬Û¾Fªº¨â±øÃä¥H¥~ªº¥ô¨â±ø½u¬O§_¦³¬Û¥æ¦b¹Ï§ÎªºÃä¤W¡A­Y¦³«h¹Ï§Î¤£¬O¦hÃä§Î¡C
         for jj=ii+2:size(pall,1)-1                             
-            if(pall(ii,1)~=pall(jj,1))                         %æ–œç‡ä¸ä¸€æ¨£æ‰éœ€æª¢é©—
-                xinter=-1*(pall(ii,2)-pall(jj,2))/(pall(ii,1)-pall(jj,1)); %è¨ˆç®—å…©æ¢ç·šäº¤é»
+            if(pall(ii,1)~=pall(jj,1))                         %±×²v¤£¤@¼Ë¤~»İÀËÅç
+                xinter=-1*(pall(ii,2)-pall(jj,2))/(pall(ii,1)-pall(jj,1)); %­pºâ¨â±ø½u¥æÂI
                 yinter=polyval(pall(ii,:),xinter);
-                x1=X(point_combination(1,ii));                 %å¾point_combinationä¸­æ‰¾å…©æ¢ç·šæ˜¯ç”±å“ªå››å€‹é»å½¢æˆ
+                x1=X(point_combination(1,ii));                 %±qpoint_combination¤¤§ä¨â±ø½u¬O¥Ñ­ş¥|­ÓÂI§Î¦¨
                 x2=X(point_combination(2,ii));
                 x3=X(point_combination(1,jj));
                 x4=X(point_combination(2,jj));
@@ -42,12 +71,12 @@ function ispolygon
                 y4=Y(point_combination(2,jj));
                 if(xinter<max([x1 x2])&&xinter>min([x1 x2])&&yinter<max([y1 y2])&&yinter>min([y1 y2])...
                         &&xinter<max([x3 x4])&&xinter>min([x3 x4])&&yinter<max([y3 y4])&&yinter>min([y3 y4]))
-                    check_polygon=false;                       %è‹¥äº¤é»åœ¨é‚Šä¸Šå‰‡ä¸æ˜¯å¤šé‚Šå½¢
+                    check_polygon=false;                       %­Y¥æÂI¦bÃä¤W«h¤£¬O¦hÃä§Î
                 end
             end
         end
     end
-    %ä»¥ä¸‹è¿´åœˆæª¢é©—å…¶ä»–çš„ç›´ç·šçµ„åˆã€‚
+    %¥H¤U°j°éÀËÅç¨ä¥Lªºª½½u²Õ¦X¡C
     for ii=2:(size(pall,1)-2)                                  
         for jj=ii+2:size(pall,1) 
             if(pall(ii,1)~=pall(jj,1))
@@ -69,9 +98,14 @@ function ispolygon
             end
         end
     end
+    
     if(check_polygon)
-        disp('æ˜¯å¤šé‚Šå½¢')
+        if(isconvex)
+            disp('¥Y¦hÃä§Î')
+        else
+            disp('¥W¦hÃä§Î')
+        end
     else
-        disp('ä¸æ˜¯å¤šé‚Šå½¢')
+        disp('¤£¬O¦hÃä§Î')
     end
 end
