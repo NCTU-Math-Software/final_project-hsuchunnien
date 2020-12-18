@@ -1,8 +1,8 @@
-%此程式要求使用者輸入平面上的一個三角形，程式會判斷原點是否在輸入的三角形內，原點若在邊上視為在三角形內。
-%輸入形式為:origin_triangle(x1,y1,x2,y2,x3,y3)
-%例如:
-%input:origin_triangle(1,1,-2,3,-5,-4)
-%output:原點沒有在裡面
+% 此程式要求使用者輸入平面上的一個三角形，程式會判斷原點是否在輸入的三角形內，原點若在邊上視為在三角形內。
+% 輸入形式為:origin_triangle(x1,y1,x2,y2,x3,y3)
+% 例如:
+% input:origin_triangle(1,1,-2,3,-5,-4)
+% output:原點沒有在裡面
 function origin_triangle(x1,y1,x2,y2,x3,y3)
     p1=polyfit([x1 x2],[y1 y2],1);             %取任兩點用polyfit得到過兩點的多項式
     p2=polyfit([x2 x3],[y2 y3],1);
