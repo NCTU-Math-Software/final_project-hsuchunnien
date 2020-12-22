@@ -8,7 +8,7 @@ function ispolygon
     array_vector=[];
     check_polygon=true;
     isconvex=true;
-    
+    f=figure('name','檢驗多邊形','NumberTitle','off');
     if size(X,2)==3                       %三個點一定是多邊形
         disp('是多邊形')
         return
