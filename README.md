@@ -20,7 +20,7 @@
 
 * 檢測不相臨兩多項式的交點有無在多項式的邊上(頂點不算)，若有則不是多邊形
 
-![GITHUB]( https://imgur.com/F0MaSks "不是多邊形例子")
+![image](https://github.com/NCTU-Math-Software/final_project-hsuchunnien/blob/main/%E4%B8%8D%E6%98%AF%E5%A4%9A%E9%82%8A%E5%BD%A2%E4%BE%8B%E5%AD%90.jpg)
 
 
 
