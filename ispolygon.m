@@ -2,6 +2,7 @@
 %下載程式放在MATLAB資料夾中後，在Command Window中輸入ispolygon，執行程式。
 %程式要求使用者在「檢驗多邊形」的視窗中用滑鼠左鍵依序輸入點，按在視窗內按滑鼠右鍵停止輸入，
 %程式會判斷將點依序連起來的圖形是凸多邊形、凹多邊形或不是多邊形，並輸出在Command Window中。
+function ispolygon
     X=[];
     Y=[];
     pall=[];
