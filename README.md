@@ -1,8 +1,15 @@
-# Project 4 - 多邊形判斷
+# 多邊形判斷
 使用者任意依序選取平面上 n 個點, 判斷其是否為多邊形.
 
 ## ispolygon
-下載ispolygon.m程式放在MATLAB資料夾中後，在Command Window中輸入ispolygon，執行程式。程式要求使用者在「check polygon」的視窗中用滑鼠左鍵依序輸入點，按滑鼠右鍵停止輸入，程式會判斷將點依序連起來的圖形是凸多邊形、凹多邊形或不是多邊形，並輸出在Command Window中。
+
+#### 執行方法
+
+* 下載ispolygon.m程式放在MATLAB資料夾中後，在Command Window中輸入ispolygon，執行程式。
+
+#### 程式介紹
+
+* 程式要求使用者在「check polygon」的視窗中用滑鼠左鍵依序輸入點，按滑鼠右鍵停止輸入，程式會判斷將點依序連起來的圖形是凸多邊形、凹多邊形或不是多邊形，並輸出在Command Window中。
 
 
 #### 是否是多邊形
