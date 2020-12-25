@@ -10,6 +10,10 @@
 #### 程式介紹
 
 * 程式要求使用者在「check polygon」的視窗中用滑鼠左鍵依序輸入點，按滑鼠右鍵停止輸入，程式會判斷將點依序連起來的圖形是凸多邊形、凹多邊形或不是多邊形，並輸出在Command Window中。
+* 例如：輸入：
+
+  * ![image](https://github.com/NCTU-Math-Software/final_project-hsuchunnien/blob/main/%E6%98%AF%E5%A4%9A%E9%82%8A%E5%BD%A2.jpg)
+  * 輸出：![image](https://github.com/NCTU-Math-Software/final_project-hsuchunnien/blob/main/%E6%98%AF%E5%A4%9A%E9%82%8A%E5%BD%A22.jpg)
 
 
 #### 是否是多邊形
