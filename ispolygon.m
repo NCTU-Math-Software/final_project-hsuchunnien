@@ -24,7 +24,7 @@ function ispolygon
     end
     plot([X X(1)],[Y Y(1)]);              % 畫出點出的多邊形
     
-    if size(X,2)==3                       % 三個點一定是多邊形
+    if size(X,2)==3                       % 三個點一定是凸多邊形
         disp('convex polygon')
         return
     end
