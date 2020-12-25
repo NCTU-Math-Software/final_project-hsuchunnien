@@ -1,7 +1,7 @@
-%題目:多邊形判斷:使用者任意依序選取平面上 n 個點, 判斷其是否為多邊形。
-%下載程式放在MATLAB資料夾中後，在Command Window中輸入ispolygon，執行程式。
-%程式要求使用者在「檢驗多邊形」的視窗中用滑鼠左鍵依序輸入點，按在視窗內按滑鼠右鍵停止輸入，
-%程式會判斷將點依序連起來的圖形是凸多邊形、凹多邊形或不是多邊形，並輸出在Command Window中。
+% 題目:多邊形判斷:使用者任意依序選取平面上 n 個點, 判斷其是否為多邊形。
+% 下載程式放在MATLAB資料夾中後，在Command Window中輸入ispolygon，執行程式。
+% 程式要求使用者在「檢驗多邊形」的視窗中用滑鼠左鍵依序輸入點，按在視窗內按滑鼠右鍵停止輸入，
+% 程式會判斷將點依序連起來的圖形是凸多邊形、凹多邊形或不是多邊形，並輸出在Command Window中。
 function ispolygon
     X=[];
     Y=[];
@@ -14,22 +14,22 @@ function ispolygon
     axis([0 3 0 3]);
     hold on
     while 1
-        [x,y,BUTTON] = ginput(1);         %滑鼠左鍵輸入點
+        [x,y,BUTTON] = ginput(1);         % 滑鼠左鍵輸入點
         if(BUTTON==3)                     % 按滑鼠右鍵就結束輸入
             break
         end
         X=[X x];
         Y=[Y y];
-        plot([X],[Y],'k-');              %畫出點出的多邊形
+        plot([X],[Y],'k-');               % 畫出點出的多邊形
     end
-    plot([X X(1)],[Y Y(1)]);              %畫出點出的多邊形
+    plot([X X(1)],[Y Y(1)]);              % 畫出點出的多邊形
     
-    if size(X,2)==3                       %三個點一定是多邊形
+    if size(X,2)==3                       % 三個點一定是多邊形
         disp('是多邊形')
         return
     end
     
-    %以下檢測圖形是凹或凸多邊形，依序紀錄向量(1,2)、(2,3),...,(n,1)，再檢測相鄰向量構成矩陣的determinant正負有無變動，有變則為凹多邊形。
+    % 以下檢測圖形是凹或凸多邊形，依序紀錄向量(1,2)、(2,3),...,(n,1)，再檢測相鄰向量構成矩陣的determinant正負有無變動，有變則為凹多邊形。
     for ii=1:(size(X,2)-1)
         vector=[X(ii+1)-X(ii);Y(ii+1)-Y(ii)];
         array_vector=[array_vector vector];
@@ -48,7 +48,7 @@ function ispolygon
         isconvex=false;
     end
 
-    %以下迴圈用polyfit做出相鄰兩點多項式
+    % 以下迴圈用polyfit做出相鄰兩點多項式
     for ii=1:(size(X,2)-1)
         p=polyfit([X(ii) X(ii+1)],[Y(ii) Y(ii+1)],1);          %做出過相鄰兩點的多項式，點了n個點就做n條多項式
         point_combination=[point_combination [ii;ii+1]];       %紀錄多項式是由哪兩個點形成的
@@ -58,7 +58,7 @@ function ispolygon
     point_combination=[point_combination [size(X,2);1]];
     pall=[pall;p];
     
-    %以下迴圈檢驗(1,3)、(1,4)、...、(1,n-1)的直線組合。((1,2)和(1,n)為相鄰邊，不需檢驗)
+    % 以下迴圈檢驗(1,3)、(1,4)、...、(1,n-1)的直線組合。((1,2)和(1,n)為相鄰邊，不需檢驗)
     for ii=1:(size(pall,1)-1)                                  %檢驗除了相鄰的兩條邊以外的任兩條線是否有相交在圖形的邊上，若有則圖形不是多邊形。
         for jj=ii+2:size(pall,1)-1                             
             if(pall(ii,1)~=pall(jj,1))                         %斜率不一樣才需檢驗
