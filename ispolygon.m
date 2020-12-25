@@ -1,6 +1,6 @@
 % 題目:多邊形判斷:使用者任意依序選取平面上 n 個點, 判斷其是否為多邊形。
 % 下載程式放在MATLAB資料夾中後，在Command Window中輸入ispolygon，執行程式。
-% 程式要求使用者在「檢驗多邊形」的視窗中用滑鼠左鍵依序輸入點，按在視窗內按滑鼠右鍵停止輸入，
+% 程式要求使用者在「check polygon」的視窗中用滑鼠左鍵依序輸入點，按在視窗內按滑鼠右鍵停止輸入，
 % 程式會判斷將點依序連起來的圖形是凸多邊形、凹多邊形或不是多邊形，並輸出在Command Window中。
 function ispolygon
     X=[];
@@ -10,7 +10,7 @@ function ispolygon
     array_vector=[];
     check_polygon=true;
     isconvex=true;
-    f=figure('name','檢驗多邊形','NumberTitle','off');
+    f=figure('name','check polygon','NumberTitle','off');
     axis([0 3 0 3]);
     hold on
     while 1
@@ -25,7 +25,7 @@ function ispolygon
     plot([X X(1)],[Y Y(1)]);              % 畫出點出的多邊形
     
     if size(X,2)==3                       % 三個點一定是多邊形
-        disp('是多邊形')
+        disp('convex polygon')
         return
     end
     
@@ -104,11 +104,11 @@ function ispolygon
     
     if(check_polygon)
         if(isconvex)
-            disp('凸多邊形')
+            disp('convex polygon')
         else
-            disp('凹多邊形')
+            disp('concave polygon')
         end
     else
-        disp('不是多邊形')
+        disp('not polygon')
     end
 end
