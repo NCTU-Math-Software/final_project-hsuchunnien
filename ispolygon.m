@@ -11,10 +11,6 @@ function ispolygon
     check_polygon=true;
     isconvex=true;
     f=figure('name','檢驗多邊形','NumberTitle','off');
-    if size(X,2)==3                       %三個點一定是多邊形
-        disp('是多邊形')
-        return
-    end
     axis([0 3 0 3]);
     hold on
     while 1
@@ -27,6 +23,11 @@ function ispolygon
         plot([X],[Y],'k-');              %畫出點出的多邊形
     end
     plot([X X(1)],[Y Y(1)]);              %畫出點出的多邊形
+    
+    if size(X,2)==3                       %三個點一定是多邊形
+        disp('是多邊形')
+        return
+    end
     
     %以下檢測圖形是凹或凸多邊形，依序紀錄向量(1,2)、(2,3),...,(n,1)，再檢測相鄰向量構成矩陣的determinant正負有無變動，有變則為凹多邊形。
     for ii=1:(size(X,2)-1)
