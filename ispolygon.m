@@ -28,25 +28,6 @@ function ispolygon
         disp('convex polygon')
         return
     end
-    
-    % 以下檢測圖形是凹或凸多邊形，依序紀錄向量(1,2)、(2,3),...,(n,1)，再檢測相鄰向量構成矩陣的determinant正負有無變動，有變則為凹多邊形。
-    for ii=1:(size(X,2)-1)
-        vector=[X(ii+1)-X(ii);Y(ii+1)-Y(ii)];
-        array_vector=[array_vector vector];
-    end
-    vector=[X(1)-X(size(X,2));Y(1)-Y(size(X,2))];
-    array_vector=[array_vector vector];
-    for ii=1:(size(array_vector,2)-2)
-        if det([array_vector(:,ii) array_vector(:,ii+1)])*det([array_vector(:,ii+1) array_vector(:,ii+2)])<0
-            isconvex=false;
-        end
-    end
-    if(det([array_vector(:,size(array_vector,2)-1) array_vector(:,size(array_vector,2))])*det([array_vector(:,size(array_vector,2)) array_vector(:,1)])<0)
-        isconvex=false;
-    end
-    if(det([array_vector(:,size(array_vector,2)) array_vector(:,1)])*det([array_vector(:,1) array_vector(:,2)])<0)
-        isconvex=false;
-    end
 
     % 以下迴圈用polyfit做出相鄰兩點多項式
     for ii=1:(size(X,2)-1)
@@ -103,6 +84,24 @@ function ispolygon
     end
     
     if(check_polygon)
+        % 以下檢測圖形是凹或凸多邊形，依序紀錄向量(1,2)、(2,3),...,(n,1)，再檢測相鄰向量構成矩陣的determinant正負有無變動，有變則為凹多邊形。
+        for ii=1:(size(X,2)-1)
+            vector=[X(ii+1)-X(ii);Y(ii+1)-Y(ii)];
+            array_vector=[array_vector vector];
+        end
+        vector=[X(1)-X(size(X,2));Y(1)-Y(size(X,2))];
+        array_vector=[array_vector vector];
+        for ii=1:(size(array_vector,2)-2)
+            if det([array_vector(:,ii) array_vector(:,ii+1)])*det([array_vector(:,ii+1) array_vector(:,ii+2)])<0
+                isconvex=false;
+            end
+        end
+        if(det([array_vector(:,size(array_vector,2)-1) array_vector(:,size(array_vector,2))])*det([array_vector(:,size(array_vector,2)) array_vector(:,1)])<0)
+            isconvex=false;
+        end
+        if(det([array_vector(:,size(array_vector,2)) array_vector(:,1)])*det([array_vector(:,1) array_vector(:,2)])<0)
+            isconvex=false;
+        end
         if(isconvex)
             disp('convex polygon')
         else
